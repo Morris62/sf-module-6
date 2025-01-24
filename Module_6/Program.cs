@@ -2,53 +2,66 @@
 
 class Program
 {
-    enum TurnDirection
+    class Circle
     {
-        None = 0,
-        Left,
-        Right
+        private double radius;
+        public double Area => radius * radius * Math.PI;
+        public double Curcumference => 2.0 * radius * Math.PI;
+        public Circle(double radius)
+        {
+            this.radius = radius;
+        }
     }
 
-    private class Car(double fuel = 10.0, int mileage = 100_000, TurnDirection turn = TurnDirection.None)
+    class Triangle
     {
-        private double _fuel = fuel;
-        private int _mileage = mileage;
-        private TurnDirection _turn = turn;
-
-        public void FillTank()
-        { 
-            _fuel = 50;
-        }
-
-        private void Drive()
+        private double a, b, c;
+        public double Area => (a + b + c) / 2.0 * Math.Sqrt(a * a + b * b - c * c);
+        public double Perimeter => a + b + c;
+        public Triangle(double a, double b, double c)
         {
-            _mileage++;
-            _fuel -= 0.5;
+            this.a = a;
+            this.b = b;
+            this.c = c;
         }
-
-        private void Turn(TurnDirection turn)
-        {
-            _turn = turn;
-        }
-
-        public double CheckFuel() => _fuel;
-        public int CheckMileage() => _mileage;
-        public void Run()
-        {
-            Drive();   
-        }
-        public bool IsTurningLeft() => _turn == TurnDirection.Left;
-        public bool IsTurningRight() => _turn == TurnDirection.Right;
     }
-    
+
+    class Rectangle
+    {
+        private double a, b;
+        
+        public double Area => a * b;
+        public double Perimeter => 2 * (a + b);
+
+        public Rectangle()
+        {
+            a = 8;
+            b = 10;
+        }
+        public Rectangle(double side)
+        {
+            a = b = side;
+        }
+
+        public Rectangle(double a, double b)
+        {
+            this.a = a;
+            this.b = b;
+        }
+    }
     
     static void Main( string[] args)
     {
-        var car = new Car();
+        var circle = new Circle(10);
+        Console.WriteLine($"Circle area: {circle.Area:F1}");
+        Console.WriteLine($"Circle circumference: {circle.Curcumference:F1}");
+        
+        var triangle = new Triangle(10, 10, 10);
+        Console.WriteLine($"Triangle area: {triangle.Area}");
+        Console.WriteLine($"Triangle perimeter: {triangle.Perimeter}");
 
-        car.Run();
-        Console.WriteLine("Car is running...");
-        Console.WriteLine($"Car fuel: {car.CheckFuel()}");
-        Console.WriteLine($"Car mileage: {car.CheckMileage()}");
+        var rectangle = new Rectangle(25);
+        Console.WriteLine($"Rectangle area: {rectangle.Area}");
+        Console.WriteLine($"Rectangle perimeter: {rectangle.Perimeter}");
     }
 }
